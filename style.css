@@ -1,0 +1,36 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 300px auto;
+    text-align: center;
+  }
+  
+  input[type="text"] {
+    margin-top: 10px;
+    padding: 5px;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* CSS styles */
+.progress {
+  margin-top: 20px;
+}
