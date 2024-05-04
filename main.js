@@ -1,3 +1,5 @@
+
+// DOMContentLoaded = een eventlistener die wacht tot het DOM volledig is geladen voordat het wordt uitgevoerd
 document.addEventListener('DOMContentLoaded', function() {
   const welcomeScreen = document.getElementById('welcome-screen');
   const quizScreen = document.getElementById('quiz-screen');
@@ -9,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const speechInputButton = document.getElementById('speech-input-button');
   const resultElement = document.getElementById('result');
 
+  // Array met de vraagjes en het antwoord 
   const questions = [
       { 
           question: "Vraag 1: Wat is de hoofdstad van Duitsland?",
@@ -34,38 +37,39 @@ document.addEventListener('DOMContentLoaded', function() {
           question: "Vraag 6: Wat is de betekenis van de afkorting 'HTML'?",
           answer: "HyperText Markup Language"
       }
-      
-
   ];
 
+
+  // houdt index bij van de huidige vraag (start bij vraag 1 (nummer 0) in de array)
   let currentQuestion = 0;
 
+  // tekst van de vraag weergeven
   function displayQuestion() {
       questionElement.textContent = questions[currentQuestion].question;
-      answerElement.value = ""; // Clear answer input field
+      answerElement.value = ""; // invoerveld leegmaken
   }
 
+  // verbergt welkomstscherm en weergeven van de eerste vraag
   function startQuiz() {
-      welcomeScreen.style.display = 'none'; // Hide welcome screen
-      quizScreen.style.display = 'block'; // Show quiz screen
-      displayQuestion(); // Display first question
+      welcomeScreen.style.display = 'none'; // welkomsbericht verbergen
+      quizScreen.style.display = 'block'; // Quiz scherm tonen
+      displayQuestion(); // eerste vraag
   }
 
+  // Voorlezen van de vraag dmv de API
   function readQuestion() {
-      const questionText = questions[currentQuestion].question;
-      const questionUtterance = new SpeechSynthesisUtterance(questionText);
-      questionUtterance.lang = "nl-BE"; // Set language
-      window.speechSynthesis.speak(questionUtterance); // Speak the question
+      const questionText = questions[currentQuestion].question; // tekst van de array ophalen
+      const questionUtterance = new SpeechSynthesisUtterance(questionText); // nieuw obj aanmaken
+      questionUtterance.lang = "nl-BE"; // de taal
+      window.speechSynthesis.speak(questionUtterance); // vraag hardop voorlezen
   }
 
+  // antwoord controleren en bepalen of het juist of fout is
   function checkAnswer(userAnswer) {
-      // Controleer het antwoord
-      const isCorrect = userAnswer.toLowerCase() === questions[currentQuestion].answer.toLowerCase();
-  
-      // Toon het antwoord voordat de melding wordt weergegeven
-      answerElement.value = userAnswer;
-  
-      // Verberg de melding na 1 seconde
+      const isCorrect = userAnswer.toLowerCase() === questions[currentQuestion].answer.toLowerCase(); // Controleer het antwoord
+      answerElement.value = userAnswer; // Toont het antwoord voordat de melding wordt weergegeven
+      
+      // Verbergt de melding na 1 sec.
       setTimeout(function() {
           resultElement.textContent = "";
   
@@ -75,39 +79,40 @@ document.addEventListener('DOMContentLoaded', function() {
               if (currentQuestion < questions.length) {
                   displayQuestion();
               } else {
-                  quizScreen.innerHTML = "<h1>Quiz completed!</h1>"; // Show quiz completed message
+                  quizScreen.innerHTML = "<h1>Goed gedaan! Je hebt op alle vragen juist kunnen antwoorden!</h1>"; // Show quiz completed message
               }
           }
       }, 1000);
   
-      // Toon de juiste melding
+      // Toont de juiste melding
       if (isCorrect) {
-          resultElement.textContent = "Correct!";
+          resultElement.textContent = "Juist!";
       } else {
-          resultElement.textContent = "Incorrect. Try again.";
+          resultElement.textContent = "Fout. Probeer opnieuw.";
       }
   }
   
   
   function handleSpeechInput() {
-      const recognition = new webkitSpeechRecognition(); // Create SpeechRecognition object
-      recognition.lang = "nl-NL"; // Set language for speech recognition
+      const recognition = new webkitSpeechRecognition(); // spraakherkenning object aanmaken
+      recognition.lang = "nl-NL"; // taal
   
+      // wordt uitgevoerd wnr er een resultaat is na de spraak
       recognition.onresult = function(event) {
-          const speechResult = event.results[0][0].transcript; // Get the recognized speech
-          answerElement.value = speechResult; // Set speech result as answer
-          checkAnswer(speechResult); // Check the answer
+          const speechResult = event.results[0][0].transcript; // herkennen spraak
+          answerElement.value = speechResult; // spraak omzetten naar het antwoord
+          checkAnswer(speechResult); // antwoord controleren
       }
   
-      recognition.start(); // Start speech recognition
+      recognition.start(); // start spraakherkenning
   }
   
   
 
-  startQuizButton.addEventListener('click', startQuiz);
-  readQuestionButton.addEventListener('click', readQuestion);
-  submitAnswerButton.addEventListener('click', function() {
-      checkAnswer(answerElement.value.trim());
+  startQuizButton.addEventListener('click', startQuiz);     // bij klik verbergen van het welkomsscherm
+  readQuestionButton.addEventListener('click', readQuestion);   //bij klik luidop voorlezen
+  submitAnswerButton.addEventListener('click', function() {     //controleren van het antwoord
+      checkAnswer(answerElement.value.trim());      
   });
-  speechInputButton.addEventListener('click', handleSpeechInput);
+  speechInputButton.addEventListener('click', handleSpeechInput);    //bij klik activeert de spraakherkenning
 });
