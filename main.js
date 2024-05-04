@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   quizScreen.innerHTML = "<h1>Goed gedaan! Je hebt op alle vragen juist kunnen antwoorden!</h1>"; // Show quiz completed message
               }
           }
-      }, 1000);
+      }, 2000);
   
       // Toont de juiste melding
       if (isCorrect) {
