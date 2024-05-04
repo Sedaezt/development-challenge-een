@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUIZ</title>
+    <title>Speech Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <!-- versie twee -->
+    <div id="background-overlay"></div> <!-- Overlay voor de achtergrond -->
+    <div id="welcome-screen" class="container">
+        <h1>Welkom bij de quiz!!</h1>
+        <button id="start-quiz">Start the Quiz</button>
+    </div>
+
+    <div id="quiz-screen" class="container" style="display: none;">
         <h1>Quiz</h1>
-        <div id="question-container">
-            <p id="question">Question 1: What is the capital of Germany?</p>
-            <input type="text" id="answer">
-            <button id="read-question">Lees de vraag</button> <!-- Knop om de vraag voor te lezen -->
-            <button id="submit-answer">Submit Answer</button>
+        <p id="question"></p>
+        <input type="text" id="answer">
+        <div class="button-group">
+            <button id="read-question">Read the Question</button> <!-- Knop om de vraag voor te lezen -->
+            <button id="submit-answer" class="submit-button">Submit Answer</button>
         </div>
         <p id="result"></p>
     </div>
+
     <script src="main.js"></script>
 </body>
 </html>
