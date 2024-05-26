@@ -1,5 +1,3 @@
-
-// DOMContentLoaded = een eventlistener die wacht tot het DOM volledig is geladen voordat het wordt uitgevoerd
 document.addEventListener('DOMContentLoaded', function() {
   const welcomeScreen = document.getElementById('welcome-screen');
   const quizScreen = document.getElementById('quiz-screen');
@@ -40,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ];
 
 
-  // houdt index bij van de huidige vraag (start bij vraag 1 (nummer 0) in de array)
+  // houd index bij van de huidige vraag (start bij vraag 1 (nummer 0) in de array)
   let currentQuestion = 0;
 
   // tekst van de vraag weergeven
@@ -49,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
       answerElement.value = ""; // invoerveld leegmaken
   }
 
-  // verbergt welkomstscherm en weergeven van de eerste vraag
+  // verbergt welkomstscherm en weergeven van de eerste vraag.
   function startQuiz() {
       welcomeScreen.style.display = 'none'; // welkomsbericht verbergen
       quizScreen.style.display = 'block'; // Quiz scherm tonen
@@ -107,8 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
       recognition.start(); // start spraakherkenning
   }
   
-  
-
   startQuizButton.addEventListener('click', startQuiz);     // bij klik verbergen van het welkomsscherm
   readQuestionButton.addEventListener('click', readQuestion);   //bij klik luidop voorlezen
   submitAnswerButton.addEventListener('click', function() {     //controleren van het antwoord
